@@ -46,19 +46,19 @@ export default class news extends Component {
             prevBtnState: true
         }
     }
-    async componentDidMount() {
-        this.setState({
-            loading: true
-        })
+    // async componentDidMount() {
+    //     this.setState({
+    //         loading: true
+    //     })
         
-        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=&apiKey=b052f49242284c2fbc43f2fd747b2587&page=1&pageSize=${this.props.pageSize}`);
-        let parsedData = await data.json();
-        this.setState({
-            articles: parsedData.articles,
-            totalResult: parsedData.totalResults,
-            loading: false
-        });
-    }
+    //     let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=&apiKey=b052f49242284c2fbc43f2fd747b2587&page=1&pageSize=${this.props.pageSize}`);
+    //     let parsedData = await data.json();
+    //     this.setState({
+    //         articles: parsedData.articles,
+    //         totalResult: parsedData.totalResults,
+    //         loading: false
+    //     });
+    // }
     handleNextClick = async () => {
         this.setState({
             loading: true
