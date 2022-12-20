@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Loading from './Loading'
+import PropTypes from 'prop-types'
 
 export default class news extends Component {
+    static defaultProps = {
+        pageSize: 10,
+        country: 'in',
+        category:"general"
+  }
+  static ProtoTypes= {
+      pageSize: PropTypes.number,
+      country: PropTypes.string,
+      category: PropTypes.string
+  }
     articles = [{
         "source": { "id": null, "name": "/FILM" },
         "author": "Travis Yates",
