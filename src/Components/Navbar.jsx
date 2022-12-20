@@ -22,8 +22,8 @@ export default class Navbar extends Component {
                             <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/sports">sports</NavLink></li>
                             <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/technology">technology</NavLink></li> */}
                             {
-                                this.sources.map((elem) => {
-                                    return elem!==""? <li className="nav-item"><NavLink className="nav-link " aria-current="page" to={`/${elem}`}>{elem.charAt(0).toUpperCase()+elem.slice(1)}</NavLink></li>: <li className="nav-item"><NavLink className="nav-link " aria-current="page" to={`/${elem}`}>Home</NavLink></li>
+                                this.sources.map((elem,index) => {
+                                    return elem!==""? <li key={index} className="nav-item"><NavLink  className="nav-link " aria-current="page" to={`/${elem}`}>{elem.charAt(0).toUpperCase()+elem.slice(1)}</NavLink></li>: <li  key={index} className="nav-item"><NavLink className="nav-link " aria-current="page" to={`/${elem}`}>Home</NavLink></li>
                                 })
                             }
                         </ul>

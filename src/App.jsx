@@ -15,7 +15,6 @@ sources=["","business","entertainment","general","health","science","sports","te
     }
   }
   modeToggler=()=>{
-    console.log(this.state.mode)
     if(this.state.mode==='light'){
     document.body.style.backgroundColor="#150b28";
     this.setState({mode:"dark"});
@@ -32,8 +31,8 @@ sources=["","business","entertainment","general","health","science","sports","te
       
       <Routes>
         {
-          this.sources.map((elem)=>{
-         return   <Route path={`/${elem}`} element={<News  key={elem} mode={this.state.mode} pageSize={5} country={"in"} category={elem}/>}/>
+          this.sources.map((elem,index)=>{
+         return   <Route path={`/${elem}`} key={index} element={<News   mode={this.state.mode} pageSize={5} country={"in"} category={elem}/>}/>
           })
         }
         {/* <Route exact path='/home' element={<News  key={""} mode={this.state.mode} pageSize={5} country={"in"} category={""}/>}/>

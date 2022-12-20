@@ -51,7 +51,7 @@ export default class news extends Component {
             loading: true
         })
         
-        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b052f49242284c2fbc43f2fd747b2587&page=1&pageSize=${this.props.pageSize}`);
+        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=&apiKey=b052f49242284c2fbc43f2fd747b2587&page=1&pageSize=${this.props.pageSize}`);
         let parsedData = await data.json();
         this.setState({
             articles: parsedData.articles,
@@ -63,7 +63,7 @@ export default class news extends Component {
         this.setState({
             loading: true
         })
-        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b052f49242284c2fbc43f2fd747b2587&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`);
+        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=&apiKey=b052f49242284c2fbc43f2fd747b2587&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`);
         let parsedData = await data.json();
         this.setState({ loading: false,
             articles: parsedData.articles,
@@ -79,7 +79,7 @@ export default class news extends Component {
         this.setState({
             loading: true
         })
-        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b052f49242284c2fbc43f2fd747b2587&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`);
+        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=&apiKey=b052f49242284c2fbc43f2fd747b2587&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`);
         let parsedData = await data.json();
         this.setState({
             articles: parsedData.articles,
@@ -95,7 +95,6 @@ export default class news extends Component {
         });
     }
     render() {
-        console.log(this.state.articles)
         return (
             <div className="container my-4" style={{ color: this.props.mode === "light" ? "black" : "white" }}>
                 <h1 className='text-center'>Top news - by missisippieee</h1>
@@ -103,8 +102,8 @@ export default class news extends Component {
                 <div className='row'>
                     {!this.state.loading &&
                         this.state.articles.map((article, index) => {
-                            return <div className="col-md-4 my-5" key={index}>
-                                <NewsItem mode={this.props.mode} title={article.title ? article.title.slice(0, 45) + "..." : "breacking news"} discription={article.description ? article.description.slice(0, 45) + "..." : "breacking news"} urlToImage={article.urlToImage} urlForBtn={article.url} />
+                            return <div className="col-md-4 my-5" key={index} >
+                                <NewsItem  mode={this.props.mode} title={article.title ? article.title.slice(0, 45) + "..." : "breacking news"} discription={article.description ? article.description.slice(0, 45) + "..." : "breacking news"} urlToImage={article.urlToImage} urlForBtn={article.url} />
                             </div>
                         })
                     }
