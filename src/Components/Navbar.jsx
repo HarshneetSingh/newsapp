@@ -13,17 +13,9 @@ export default class Navbar extends Component {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0" >
-                            {/* <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/home">Home</NavLink></li>
-                            <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/business">business</NavLink></li>
-                            <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/entertainment">entertainment</NavLink></li>
-                            <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/general">general</NavLink></li>
-                            <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/health">health</NavLink></li>
-                            <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/science">science</NavLink></li>
-                            <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/sports">sports</NavLink></li>
-                            <li className="nav-item"><NavLink className="nav-link " aria-current="page" to="/technology">technology</NavLink></li> */}
                             {
                                 this.sources.map((elem,index) => {
-                                    return elem!==""? <li key={index} className="nav-item"><NavLink  className="nav-link " aria-current="page" to={`/${elem}`}>{elem.charAt(0).toUpperCase()+elem.slice(1)}</NavLink></li>: <li  key={index} className="nav-item"><NavLink className="nav-link " aria-current="page" to={`/${elem}`}>Home</NavLink></li>
+                                    return elem!==""? <li key={index} className="nav-item"><NavLink  className="nav-link " aria-current="page" to={`/${elem}`}>{elem.charAt(0).toUpperCase()+elem.slice(1)}</NavLink></li>: <li key={index} className="nav-item"><NavLink className="nav-link " aria-current="page" to={`/${elem}`}>Home</NavLink></li>
                                 })
                             }
                         </ul>

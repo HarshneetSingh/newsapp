@@ -7,13 +7,13 @@ export default class news extends Component {
     static defaultProps = {
         pageSize: 10,
         country: 'in',
-        category:"general"
-  }
-  static ProtoTypes= {
-      pageSize: PropTypes.number,
-      country: PropTypes.string,
-      category: PropTypes.string
-  }
+        category: "general"
+    }
+    static ProtoTypes = {
+        pageSize: PropTypes.number,
+        country: PropTypes.string,
+        category: PropTypes.string
+    }
     articles = [{
         "source": { "id": null, "name": "/FILM" },
         "author": "Travis Yates",
@@ -41,71 +41,77 @@ export default class news extends Component {
             articles: this.articles,
             loading: false,
             page: 1,
-            count: 0,
             nextBtnState: false,
             prevBtnState: true
         }
     }
-    // async componentDidMount() {
-    //     this.setState({
-    //         loading: true
-    //     })
-        
-    //     let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=&apiKey=b052f49242284c2fbc43f2fd747b2587&page=1&pageSize=${this.props.pageSize}`);
-    //     let parsedData = await data.json();
-    //     this.setState({
-    //         articles: parsedData.articles,
-    //         totalResult: parsedData.totalResults,
-    //         loading: false
-    //     });
-    // }
-    handleNextClick = async () => {
+    async updateArticles() {
+        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3e762bf52df34d9e9cf3be354e6b1685&page=${this.state.page}&pageSize=${this.props.pageSize}`);
+        let parsedData = await data.json();
+        this.setState({
+            articles: parsedData.articles,
+            totalResult: parsedData.totalResults,
+            loading: false
+        });
+    }
+    async componentDidMount() {
         this.setState({
             loading: true
         })
-        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=&apiKey=b052f49242284c2fbc43f2fd747b2587&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`);
-        let parsedData = await data.json();
-        this.setState({ loading: false,
-            articles: parsedData.articles,
-            page: this.state.page + 1,
-            count: this.state.count + 1,
-            prevBtnState: false
-           
+        this.updateArticles();
+        document.title=`${this.props.category} - Harshey's`
+    }
+    handleNextClick = async () => {
+        this.setState({
+            loading: true,
+            page: this.state.page + 1
+
         }, () => {
-            this.state.page + 1 > Math.ceil(this.state.totalResult / this.props.pageSize) ? this.setState({ nextBtnState: true }) : this.setState({ nextBtnState: false })
-        });
+            this.updateArticles();
+            this.setState({
+                prevBtnState: false
+            }, () => {
+                // Math.ceil(this.state.totalResult / this.props.pageSize)   Means that, it will return the total pages
+                this.state.page +1> Math.ceil(this.state.totalResult / this.props.pageSize) ? this.setState({ nextBtnState: true }) : this.setState({ nextBtnState: false })
+            })
+        })
     }
     handlePrevClick = async () => {
         this.setState({
-            loading: true
-        })
-        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=&apiKey=b052f49242284c2fbc43f2fd747b2587&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`);
-        let parsedData = await data.json();
-        this.setState({
-            articles: parsedData.articles,
-            page: this.state.page - 1,
-            count: this.state.count - 1
-            , nextBtnState: false,
-            loading: false
+            loading: true,
+            page: this.state.page - 1
+
+        }, () => {
+            this.updateArticles(); 
+            this.setState({
+            nextBtnState: false,
 
         }, () => {
             if (this.state.page === 1) {
                 this.setState({ prevBtnState: true })
             }
-        });
+        })
+        })
+
     }
     render() {
         return (
             <div className="container my-4" style={{ color: this.props.mode === "light" ? "black" : "white" }}>
-                <h1 className='text-center'>Top news - by missisippieee</h1>
-                {this.state.loading && <Loading/>}
-                {console.log(this.state.articles)}
+                <h1 className='text-center'>Top {this.props.category} Headlines For You</h1>
+                {this.state.loading && <Loading />}
                 <div className='row'>
-                    {!this.state.loading  &&
+                    {!this.state.loading &&
                         this.state.articles.map((article, index) => {
-                            console.log(article , index)
-                            return <div className="col-md-4 my-5" key={index} >
-                                <NewsItem  mode={this.props.mode} title={article.title ? article.title.slice(0, 45) + "..." : "breacking news"} discription={article.description ? article.description.slice(0, 45) + "..." : "breacking news"} urlToImage={article.urlToImage} urlForBtn={article.url} />
+                            return <div className="col-md-4 my-5" key={index}>
+                                <NewsItem
+                                    mode={this.props.mode}
+                                    publishedAt={article.publishedAt}
+                                    title={article.title ? article.title.slice(0, 45) + "..." : "breacking news"}
+                                    discription={article.description ? article.description.slice(0, 45) + "..." : "breacking news"}
+                                    urlToImage={article.urlToImage}
+                                    author={article.author}
+                                    urlForBtn={article.url}
+                                    source={article.source.name} />
                             </div>
                         })
                     }
