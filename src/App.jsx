@@ -35,14 +35,6 @@ sources=["","business","entertainment","general","health","science","sports","te
          return   <Route path={`/${elem}`} key={index} element={<News   mode={this.state.mode} pageSize={5} country={"in"} category={elem}/>}/>
           })
         }
-        {/* <Route exact path='/home' element={<News  key={""} mode={this.state.mode} pageSize={5} country={"in"} category={""}/>}/>
-        <Route exact path='/business' element={<News key={""} mode={this.state.mode} pageSize={5} country={"in"} category={"business"}/>}/>
-        <Route exact path='/entertainment' element={<News key={""} mode={this.state.mode} pageSize={5} country={"in"} category={"entertainment"}/>}/>
-        <Route exact path='/general' element={<News key={""} mode={this.state.mode} pageSize={5} country={"in"} category={"general"}/>}/>
-        <Route exact path='/health' element={<News key={""} mode={this.state.mode} pageSize={5} country={"in"} category={"health"}/>}/>
-        <Route exact path='/science' element={<News key={""} mode={this.state.mode} pageSize={5} country={"in"} category={"science"}/>}/>
-        <Route exact path='/sports' element={<News key={""} mode={this.state.mode} pageSize={5} country={"in"} category={"sports"}/>}/>
-        <Route exact path='/technology' element={<News key={""} mode={this.state.mode} pageSize={5} country={"in"} category={"technology"}/>}/> */}
       </Routes>
       </>
     )

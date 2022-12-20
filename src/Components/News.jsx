@@ -99,9 +99,11 @@ export default class news extends Component {
             <div className="container my-4" style={{ color: this.props.mode === "light" ? "black" : "white" }}>
                 <h1 className='text-center'>Top news - by missisippieee</h1>
                 {this.state.loading && <Loading/>}
+                {console.log(this.state.articles)}
                 <div className='row'>
-                    {!this.state.loading &&
+                    {!this.state.loading  &&
                         this.state.articles.map((article, index) => {
+                            console.log(article , index)
                             return <div className="col-md-4 my-5" key={index} >
                                 <NewsItem  mode={this.props.mode} title={article.title ? article.title.slice(0, 45) + "..." : "breacking news"} discription={article.description ? article.description.slice(0, 45) + "..." : "breacking news"} urlToImage={article.urlToImage} urlForBtn={article.url} />
                             </div>
