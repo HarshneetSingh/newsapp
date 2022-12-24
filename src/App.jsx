@@ -35,7 +35,7 @@ export default class App extends Component {
             this.sources.map((elem) => {
               return <Route
                 path={`/${elem}`} key={elem}
-                element={<News mode={this.state.mode} key={elem} pageSize={15} country={"in"} category={elem} />} />
+                element={<News mode={this.state.mode} key={elem} pageSize={5} country={"in"} category={elem} />} />
             })
           }
         </Routes>
