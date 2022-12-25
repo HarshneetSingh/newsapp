@@ -4,6 +4,7 @@ import Loading from './Loading'
 import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroll-component'
 export default class news extends Component {
+
     static defaultProps = {
         pageSize: 10,
         country: 'in',
@@ -46,13 +47,20 @@ export default class news extends Component {
         }
     }
     async updateArticles() {
-        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3e762bf52df34d9e9cf3be354e6b1685&page=${this.state.page}&pageSize=${this.props.pageSize}`);
+        this.props.progress(20)
+        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`);
+        this.props.progress(50)
+
         let parsedData = await data.json();
+        this.props.progress(70)
+
         this.setState({
             articles: parsedData.articles,
             totalResult: parsedData.totalResults,
             loading: false
         });
+        this.props.progress(100)
+
     }
     async componentDidMount() {
         this.setState({
@@ -94,14 +102,16 @@ export default class news extends Component {
     //     })
 
     // }
-    fetchData = async () => {
-        this.setState({ page: this.state.page + 1 })
-        let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3e762bf52df34d9e9cf3be354e6b1685&page=${this.state.page}&pageSize=${this.props.pageSize}`);
-        let parsedData = await data.json();
-        this.setState({
-            articles: this.state.articles.concat(parsedData.articles),
-            totalResult: parsedData.totalResults
-        });
+    fetchData = () => {
+        this.setState({ page: this.state.page + 1 }, async () => {
+            let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`);
+            let parsedData = await data.json();
+            this.setState({
+                articles: this.state.articles.concat(parsedData.articles),
+                totalResult: parsedData.totalResults
+            });
+        })
+
     }
     render() {
         return (
@@ -118,7 +128,7 @@ export default class news extends Component {
                         <div className='row'>
                             {
                                 this.state.articles.map((article, index) => {
-                                    return <div className="col-md-4 my-5" key={index}>
+                                    return <div className="col-md-4 col-sm-6 my-5" key={index}>
                                         <NewsItem
                                             mode={this.props.mode}
                                             publishedAt={article.publishedAt}
