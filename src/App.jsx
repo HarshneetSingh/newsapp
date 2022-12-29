@@ -1,53 +1,47 @@
 import './App.css';
 
-import React, { Component } from 'react'
+import React ,{useState}from 'react'
 import Navbar from './Components/Navbar';
 import News from './Components/News';
 import { Routes, Route } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar';
-export default class App extends Component {
-  sources = ["", "business", "entertainment", "general", "health", "science", "sports", "technology"];
-  apiKey=process.env.REACT_APP_NEWS_APP;
-  constructor() {
-    super()
+const App=() => {
+  const sources = ["", "business", "entertainment", "general", "health", "science", "sports", "technology"];
+  const apiKey=process.env.REACT_APP_NEWS_APP;
+    const [mode, setMode] = useState("light")
+    const [progress, setProgress] = useState(10)
 
-    this.state = {
-      mode: "light",
-      progress: 10
-    }
-  }
-  modeToggler = () => {
-    console.log(this.state.mode)
-    if (this.state.mode === 'light') {
+
+  const modeToggler = () => {
+    if (mode === 'light') {
       document.body.style.backgroundColor = "#150b28";
-      this.setState({ mode: "dark" });
+      setMode("dark");
     } else {
       document.body.style.backgroundColor = "white";
-      this.setState({ mode: "light" });
+      setMode("light");
 
     }
   }
 
-  setProgress = (prog) => {
-    this.setState({ progress: prog })
+  const setProg = (prog) => {
+    setProgress(prog)
   }
-  render() {
     return (
       <>
-        <Navbar mode={this.state.mode} toggle={this.modeToggler} />
-        <LoadingBar color={this.state.mode==="light"?"black":"white"} progress={this.state.progress}/>
+        <Navbar mode={mode} toggle={modeToggler} />
+        <LoadingBar color={mode==="light"?"black":"white"} progress={progress}/>
         <Routes>
           {
-            this.sources.map((elem) => {
+            sources.map((elem) => {
               return <Route
                 path={`/${elem}`} key={elem}
-                element={<News apiKey={this.apiKey} progress={this.setProgress} mode={this.state.mode} key={elem} pageSize={6} country={"in"} category={elem} />} />
+                element={<News apiKey={apiKey} progress={setProg} mode={mode} key={elem} pageSize={6} country={"in"} category={elem} />} />
             })
           }
         </Routes>
       </>
     )
-  }
 }
 
 
+export default App

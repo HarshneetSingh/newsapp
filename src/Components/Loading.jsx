@@ -1,10 +1,10 @@
 import Fountain from './Fountain.gif'
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class Loading extends Component {
-  render() {
-    return (
-      <div className='d-flex justify-content-center align-item-center my-3'><img src={Fountain} alt="loading"/></div>
-    )
-  }
+const Loading = () => {
+  return (
+    <div className='d-flex justify-content-center align-item-center my-3'><img src={Fountain} alt="loading" /></div>
+  )
 }
+
+export default Loading;
